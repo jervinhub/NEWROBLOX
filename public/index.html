@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Buy Robux</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #000000;
+      --surface: #0a0a0a;
+      --card: #111111;
+      --card2: #111111;
+      --accent: #0f6efd;
+      --accent2: #1877f2;
+      --robux-gold: #ffcd00;
+      --text: #ffffff;
+      --text-muted: #a0aec0;
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 8px 32px rgba(0,0,0,0.4);
+      --grid-line: rgba(255,255,255,0.03);
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── GRID BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+      #app {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+    /* ── TOP BAR ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px 12px;
+      position: sticky;
+      top: 0;
+      background: rgba(0,0,0,0.96);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-close {
+      width: 36px; height: 36px;
+      background: none; border: none; cursor: pointer;
+      color: var(--text-muted);
+      font-size: 20px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+    .topbar-close:hover { background: rgba(255,255,255,0.08); }
+    .topbar-balance {
+      display: flex; align-items: center; gap: 8px;
+      cursor: pointer;
+      user-select: none;
+      border-radius: 20px;
+      padding: 6px 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .topbar-balance:hover { background: rgba(255,255,255,0.12); }
+    .topbar-balance-icon { width: 20px; height: 20px; }
+    .topbar-balance-amt {
+      font-size: 15px; font-weight: 800; color: var(--text);
+      min-width: 20px;
+    }
+    .topbar-balance-amt[contenteditable="true"] {
+      outline: none;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 1px;
+    }
+    .send-btn {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px; font-weight: 700;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .send-btn:hover { background: rgba(255,255,255,0.10); transform: scale(1.02); }
+    .send-btn:active { transform: scale(0.97); }
+
+    /* ── SCROLL CONTENT ── */
+    .scroll-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 28px 20px 40px;
+    }
+    .scroll-content::-webkit-scrollbar { width: 4px; }
+    .scroll-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+    h1.page-title {
+      font-size: 36px; font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 28px;
+      line-height: 1;
+    }
+
+    /* ── PACKAGES ── */
+    .section-title {
+      font-size: 15px; font-weight: 800;
+      color: var(--text);
+      margin-bottom: 12px;
+      text-transform: none;
+    }
+    .packages-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+    .pkg-row {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.15s;
+      position: relative;
+    }
+    .pkg-row:last-child { border-bottom: none; }
+    .pkg-row:hover { background: rgba(255,255,255,0.08); }
+    .pkg-left {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .pkg-name {
+      font-size: 17px; font-weight: 800; color: var(--text);
+    }
+    .for-you-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 2px 10px;
+      font-size: 11px; font-weight: 700;
+      color: var(--text-muted);
+      margin-left: 6px;
+    }
+    .pkg-price-btn {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      border-radius: 10px;
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px; font-weight: 700;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+    .pkg-price-btn:hover { background: rgba(255,255,255,0.18); }
+    .pkg-price-btn.highlight {
+      background: var(--accent2);
+      color: #fff;
+    }
+    .pkg-price-btn.highlight:hover { background: #1565d8; }
+
+    /* ── NEW ON ROBLOX ── */
+    .new-section { margin-bottom: 24px; }
+    .new-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .new-header-left {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 18px; font-weight: 800;
+    }
+    .learn-more {
+      font-size: 13px; font-weight: 700;
+      color: var(--text-muted);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .roblox-plus-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .plus-title {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 17px; font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .plus-feature {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 12px;
+      font-size: 14px; font-weight: 600; color: var(--text-muted);
+    }
+    .plus-feature svg { flex-shrink: 0; }
+    .plus-price-btn {
+      width: 100%; margin-top: 16px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      font-size: 15px; font-weight: 800;
+      padding: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .plus-price-btn:hover { background: rgba(255,255,255,0.14); }
+
+    /* ── MORE WAYS ── */
+    .more-ways-title {
+      font-size: 20px; font-weight: 900;
+      margin-bottom: 14px;
+    }
+    .gift-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 32px;
+    }
+    .gift-card h3 { font-size: 18px; font-weight: 900; margin-bottom: 6px; }
+    .gift-card p { font-size: 14px; color: var(--text-muted); font-weight: 600; margin-bottom: 16px; }
+    .buy-btn {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      font-size: 15px; font-weight: 800;
+      padding: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .buy-btn:hover { background: rgba(255,255,255,0.14); }
+
+    /* ── FAQ ── */
+    .faq-title { font-size: 24px; font-weight: 900; margin-bottom: 14px; }
+    .faq-item {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .faq-question {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 20px;
+      cursor: pointer;
+      font-size: 15px; font-weight: 700;
+      user-select: none;
+    }
+    .faq-arrow {
+      transition: transform 0.3s;
+      color: var(--text-muted);
+    }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s;
+      font-size: 14px; font-weight: 600; color: var(--text-muted);
+      padding: 0 20px;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 200px;
+      padding: 0 20px 18px;
+    }
+
+    /* ── MODAL BACKDROP ── */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      display: flex; align-items: flex-end;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .modal-backdrop.visible { opacity: 1; pointer-events: all; }
+
+    /* ── SEND MODAL ── */
+    .send-modal {
+      width: 100%; max-width: 430px;
+      margin: 0 auto;
+      background: #0b0b0b;
+      border-radius: 24px 24px 0 0;
+      padding: 0 0 40px;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.34, 1.1, 0.64, 1);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-backdrop.visible .send-modal {
+      transform: translateY(0);
+    }
+
+    .modal-handle {
+      width: 40px; height: 4px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 2px;
+      margin: 14px auto 0;
+    }
+    .modal-topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-title {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 17px; font-weight: 800;
+    }
+    .modal-balance {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 15px; font-weight: 800;
+    }
+    .modal-close-btn {
+      background: none; border: none; color: var(--text-muted);
+      font-size: 20px; cursor: pointer;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+    .modal-close-btn:hover { background: rgba(255,255,255,0.08); }
+
+    /* Search box */
+    .search-wrap { padding: 20px; }
+    .search-input-box {
+      width: 100%;
+      background: transparent;
+      border: 2px solid var(--accent);
+      border-radius: 12px;
+      padding: 16px 18px;
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      font-size: 16px; font-weight: 600;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .search-input-box::placeholder { color: rgba(255,255,255,0.3); }
+    .search-input-box:focus {
+      box-shadow: 0 0 0 3px rgba(15,110,253,0.2);
+    }
+
+    /* User result card */
+    .user-result {
+      margin: 0 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      display: none;
+      animation: slideIn 0.3s ease;
+    }
+    .user-result.visible { display: block; }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .user-card-inner {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .avatar-img {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid var(--accent);
+    }
+    .avatar-placeholder {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0f6efd, #1877f2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 900; color: #fff;
+      flex-shrink: 0;
+      border: 2px solid var(--accent);
+    }
+    .user-info { flex: 1; }
+    .user-display { font-size: 17px; font-weight: 800; }
+    .user-name { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+
+    /* Amount input */
+    .amount-section { padding: 16px 20px 0; }
+    .amount-label {
+      font-size: 13px; font-weight: 700;
+      color: var(--text-muted); margin-bottom: 8px;
+    }
+    .amount-input-row {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .amount-input {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      font-size: 18px; font-weight: 800;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .amount-input:focus { border-color: var(--accent); }
+    .send-confirm-btn {
+      background: var(--accent2);
+      border: none; border-radius: 12px;
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 15px; font-weight: 800;
+      padding: 14px 24px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .send-confirm-btn:hover { background: #1565d8; }
+    .send-confirm-btn:active { transform: scale(0.96); }
+    .send-confirm-btn:disabled { background: rgba(255,255,255,0.1); cursor: not-allowed; color: var(--text-muted); }
+
+    /* ── LOADING STATE ── */
+    .loading-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.97);
+      border-radius: 24px 24px 0 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 16px;
+      z-index: 10;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .loading-overlay.visible { opacity: 1; pointer-events: all; }
+    .spinner {
+      width: 52px; height: 52px;
+      border: 4px solid rgba(255,255,255,0.08);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text { font-size: 18px; font-weight: 800; }
+    .loading-sub { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+
+    /* ── SUCCESS STATE ── */
+    .success-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.97);
+      border-radius: 24px 24px 0 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 10px;
+      z-index: 10;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .success-overlay.visible { opacity: 1; pointer-events: all; }
+    .checkmark-circle {
+      width: 72px; height: 72px;
+      background: #22c55e;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 8px;
+      animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    @keyframes popIn {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    .checkmark-circle svg { width: 38px; height: 38px; }
+    .success-title { font-size: 26px; font-weight: 900; }
+    .success-desc { font-size: 15px; font-weight: 600; color: var(--text-muted); text-align: center; padding: 0 20px; }
+    .done-btn {
+      margin-top: 16px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      font-size: 15px; font-weight: 800;
+      padding: 14px 48px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .done-btn:hover { background: rgba(255,255,255,0.18); }
+
+    /* Error toast */
+    .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: #ef4444;
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px; font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 12px;
+      z-index: 999;
+      transition: transform 0.3s;
+      white-space: nowrap;
+      box-shadow: 0 4px 24px rgba(239,68,68,0.4);
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* Robux SVG icon */
+    .robux-icon { display: inline-flex; align-items: center; }
+
+    .icon-img{
+      width:22px;
+      height:22px;
+      object-fit:contain;
+    }
+
+    .topbar-balance-icon{
+      width:20px;
+      height:20px;
+      object-fit:contain;
+    }
+
+    /* Balance edit hint */
+    .balance-hint {
+      font-size: 10px; font-weight: 600;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 4px;
+      opacity: 0.6;
+    }
+
+    /* Loading dots for search */
+    .searching-indicator {
+      text-align: center; padding: 20px;
+      font-size: 14px; font-weight: 600;
+      color: var(--text-muted);
+      display: none;
+    }
+    .searching-indicator.visible { display: block; }
+    .dot { animation: blink 1.2s infinite; display: inline-block; }
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes blink { 0%,80%,100%{opacity:0} 40%{opacity:1} }
+
+    
+    /* ───────────────────────────── */
+    /* NEW SEND UI LIKE SCREENSHOT  */
+    /* ───────────────────────────── */
+
+    .send-ui-card {
+      margin: 18px 20px 0;
+      background: #111318;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 28px 28px 0 0;
+      padding: 22px 18px 28px;
+      animation: slideIn 0.25s ease;
+    }
+
+    .send-ui-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 34px;
+    }
+
+    .send-ui-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .send-ui-title {
+      font-size: 19px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .send-ui-balance {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 20px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .selected-user-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .selected-user-wrap .avatar-img,
+    .selected-user-wrap .avatar-placeholder {
+      width: 84px;
+      height: 84px;
+      border: none;
+      margin-bottom: 14px;
+    }
+
+    .selected-user-name {
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .big-amount-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .big-amount-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 70px;
+      font-weight: 700;
+      width: 250px;
+      text-align: center;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .big-amount-input::-webkit-outer-spin-button,
+    .big-amount-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .quick-amount-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .quick-amount-btn {
+      height: 62px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: #1b1d25;
+      color: #fff;
+      font-size: 22px;
+      font-weight: 900;
+      font-family: 'Nunito', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .next-send-btn {
+      width: 100%;
+      height: 64px;
+      border: none;
+      border-radius: 18px;
+      background: #2f55ff;
+      color: #fff;
+      font-size: 24px;
+      font-weight: 900;
+      font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+    }
+
+    .send-footer-text {
+      text-align: center;
+      margin-top: 18px;
+      color: rgba(255,255,255,0.55);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+
+    @media (min-width: 768px) {
+  .modal-backdrop {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .send-modal {
+    border-radius: 28px;
+    margin: 20px;
+    max-width: 520px;
+  }
+}
+      .loading-overlay, .success-overlay { border-radius: 24px; }
+      
+      /* RESPONSIVE */
+  @media (min-width: 768px) {
+
+  .scroll-content {
+    padding: 40px;
+  }
+
+  .packages-card,
+  .roblox-plus-card,
+  .gift-card,
+  .faq-item {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .page-title,
+  .section-title,
+  .more-ways-title,
+  .faq-title {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .send-modal {
+    max-width: 520px;
+  }
+
+}
+    /* ───────────────────────────── */
+/* NEW PREMIUM ROBUX UI */
+/* ───────────────────────────── */
+
+.premium-hero {
+  position: relative;
+  padding: 60px 20px 40px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.premium-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at center,
+    rgba(255,255,255,0.06),
+    transparent 70%);
+  opacity: 0.6;
+}
+
+.premium-title {
+  position: relative;
+  z-index: 2;
+  font-size: 72px;
+  line-height: 0.95;
+  font-weight: 900;
+  letter-spacing: -3px;
+  color: #fff;
+}
+
+.bonus-title {
+  font-size: 34px;
+  font-weight: 900;
+  margin-bottom: 18px;
+  padding: 0 20px;
+}
+
+.premium-packages {
+  overflow: hidden;
+  border-radius: 22px;
+  background: #111111;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.bonus-header {
+  height: 140px;
+  position: relative;
+  background:
+    linear-gradient(90deg,
+    rgba(0,0,0,0.8),
+    rgba(0,0,0,0.15)),
+    url('https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+}
+
+.bonus-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0,0,0,0.85),
+    rgba(0,0,0,0.2)
+  );
+}
+
+.bonus-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 24px;
+}
+
+.bonus-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.bonus-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #0f6efd;
+  padding: 14px;
+}
+
+.bonus-game {
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.bonus-item {
+  font-size: 18px;
+  color: rgba(255,255,255,0.75);
+  margin-top: 4px;
+  font-weight: 700;
+}
+
+.premium-row {
+  padding: 22px 24px;
+}
+
+.robux-amount-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.premium-amount {
+  font-size: 28px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.old-amount {
+  font-size: 22px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.45);
+  text-decoration: line-through;
+}
+
+.bonus-more {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.premium-price {
+  min-width: 180px;
+  height: 58px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.08);
+  font-size: 20px;
+  font-weight: 900;
+}
+
+@media (max-width: 768px) {
+
+  .premium-title {
+    font-size: 48px;
+  }
+
+  .bonus-title {
+    font-size: 24px;
+  }
+
+  .bonus-game {
+    font-size: 20px;
+  }
+
+  .bonus-item {
+    font-size: 14px;
+  }
+
+  .premium-amount {
+    font-size: 22px;
+  }
+
+  .old-amount {
+    font-size: 17px;
+  }
+
+  .premium-price {
+    min-width: 120px;
+    font-size: 16px;
+    height: 52px;
+  }
+
+  .premium-row {
+    gap: 14px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .premium-price {
+    width: 100%;
+  }
+}
+    
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <button class="topbar-close" onclick="window.history.back()">✕</button>
+    <div class="topbar-balance" title="Tap to edit balance" onclick="editBalance(event)">
+      <!-- Robux icon -->
+      <img src="assets/robux.png" class="topbar-balance-icon">
+      <span class="topbar-balance-amt" id="balanceDisplay">18</span>
+    </div>
+    <button class="send-btn" onclick="openSendModal()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+      Send
+    </button>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="scroll-content">
+    <h1 class="page-title">Buy Robux</h1>
+
+    <!-- Packages -->
+    <!-- PREMIUM HERO -->
+<div class="premium-hero">
+  <div class="premium-bg"></div>
+
+  <h1 class="premium-title">
+    Enjoy up to 25%<br>
+    more Robux
+  </h1>
+</div>
+
+<div class="bonus-title">
+  Bonus item we picked for you
+</div>
+
+<!-- Packages -->
+<div class="packages-card premium-packages">
+
+  <!-- HEADER CARD -->
+  <div class="bonus-header">
+    <div class="bonus-overlay"></div>
+
+    <div class="bonus-content">
+      <div class="bonus-left">
+        <img src="assets/robux.png" class="bonus-icon">
+
+        <div>
+          <div class="bonus-game">
+            Obby For Free Rewards 🎁
+          </div>
+
+          <div class="bonus-item">
+            Gravity Coil [JUMP HIGH]
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PACKAGE -->
+  <div class="pkg-row premium-row">
+    <div class="pkg-left premium-left">
+      <div class="robux-amount-wrap">
+        <img src="assets/robux.png" width="22" height="22" class="icon-img">
+
+        <span class="premium-amount">
+          24,000
+        </span>
+
+        <span class="old-amount">
+          22,500
+        </span>
+
+        <span class="bonus-more">
+          +1500 more
+        </span>
+      </div>
+    </div>
+
+    <button class="pkg-price-btn premium-price">
+      ₱11.49K
+    </button>
+  </div>
+
+  <!-- PACKAGE -->
+  <div class="pkg-row premium-row">
+    <div class="pkg-left premium-left">
+      <div class="robux-amount-wrap">
+        <img src="assets/robux.png" width="22" height="22" class="icon-img">
+
+        <span class="premium-amount">
+          11,000
+        </span>
+
+        <span class="old-amount">
+          10,000
+        </span>
+
+        <span class="bonus-more">
+          +1000 more
+        </span>
+      </div>
+    </div>
+
+    <button class="pkg-price-btn premium-price">
+      ₱5,700.00
+    </button>
+  </div>
+
+  <!-- PACKAGE -->
+  <div class="pkg-row premium-row">
+    <div class="pkg-left premium-left">
+      <div class="robux-amount-wrap">
+        <img src="assets/robux.png" width="22" height="22" class="icon-img">
+
+        <span class="premium-amount">
+          5,250
+        </span>
+
+        <span class="old-amount">
+          4,500
+        </span>
+
+        <span class="bonus-more">
+          +750 more
+        </span>
+      </div>
+    </div>
+
+    <button class="pkg-price-btn premium-price">
+      ₱2,890.00
+    </button>
+  </div>
+
+  <!-- PACKAGE -->
+  <div class="pkg-row premium-row">
+    <div class="pkg-left premium-left">
+      <div class="robux-amount-wrap">
+        <img src="assets/robux.png" width="22" height="22" class="icon-img">
+
+        <span class="premium-amount">
+          3,625
+        </span>
+
+        <span class="old-amount">
+          3,150
+        </span>
+
+        <span class="bonus-more">
+          +475 more
+        </span>
+      </div>
+    </div>
+
+    <button class="pkg-price-btn premium-price">
+      ₱1,990.00
+    </button>
+  </div>
+
+  <!-- PACKAGE -->
+  <div class="pkg-row premium-row">
+    <div class="pkg-left premium-left">
+      <div class="robux-amount-wrap">
+        <img src="assets/robux.png" width="22" height="22" class="icon-img">
+
+        <span class="premium-amount">
+          2,000
+        </span>
+
+        <span class="old-amount">
+          1,700
+        </span>
+
+        <span class="bonus-more">
+          +300 more
+        </span>
+      </div>
+    </div>
+
+    <button class="pkg-price-btn premium-price">
+      ₱1,150.00
+    </button>
+  </div>
+
+</div>
+
+    <!-- New on Roblox -->
+    <div class="new-section">
+      <div class="new-header">
+        <div class="new-header-left">
+          <img src="assets/roblox.png" width="22" height="22" class="icon-img">
+          New on Roblox
+        </div>
+        <span class="learn-more">Learn more</span>
+      </div>
+
+      <div class="roblox-plus-card">
+        <div class="plus-title">
+          <img src="assets/roblox.png" width="22" height="22" class="icon-img">
+          Get Roblox Plus
+        </div>
+        <div class="plus-feature">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M7 7h10M7 12h6" stroke="#a0aec0" stroke-width="2" stroke-linecap="round"/><path d="M3 5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5z" stroke="#a0aec0" stroke-width="1.5"/></svg>
+          10% off in-game items, avatars, and more
+        </div>
+        <div class="plus-feature">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="6" width="20" height="14" rx="3" stroke="#a0aec0" stroke-width="1.5"/><path d="M8 6V4a4 4 0 018 0v2" stroke="#a0aec0" stroke-width="1.5"/></svg>
+          Free and unlimited private servers
+        </div>
+        <div class="plus-feature">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#a0aec0" stroke-width="1.5"/><path d="M9 10h6M9 14h4" stroke="#a0aec0" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Send Robux for free
+        </div>
+        <button class="plus-price-btn">₱269.00/month</button>
+      </div>
+    </div>
+
+    <!-- More ways -->
+    <div class="more-ways-title">More ways to get Robux</div>
+    <div class="gift-card">
+      <h3>Gift Card</h3>
+      <p>Enjoy 25% more Robux on Roblox gift cards</p>
+      <button class="buy-btn">Buy</button>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-title">FAQ</div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-question">
+        What are Robux?
+        <svg class="faq-arrow" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5H7z"/></svg>
+      </div>
+      <div class="faq-answer">Robux is the virtual currency used in Roblox. You can use Robux to purchase in-game items, avatar accessories, and more.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-question">
+        Where are my Robux?
+        <svg class="faq-arrow" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5H7z"/></svg>
+      </div>
+      <div class="faq-answer">Your Robux balance is displayed at the top of the app. After a purchase, it may take a few minutes to appear.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-question">
+        Do Robux expire?
+        <svg class="faq-arrow" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5H7z"/></svg>
+      </div>
+      <div class="faq-answer">No, Robux do not expire. Once you purchase them, they remain in your account indefinitely.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SEND ROBUX MODAL ── -->
+<div class="modal-backdrop" id="sendModal" onclick="backdropClose(event)">
+  <div class="send-modal" id="sendModalInner">
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="spinner"></div>
+      <div class="loading-text">Sending Robux...</div>
+      <div class="loading-sub">Please wait</div>
+    </div>
+    <div class="success-overlay" id="successOverlay">
+      <div class="checkmark-circle">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="success-title">Robux Sent!</div>
+      <div class="success-desc" id="successDesc">You sent 0 Robux to username</div>
+      <button class="done-btn" onclick="closeSendModal()">Done</button>
+    </div>
+
+    <div class="modal-handle"></div>
+    <div class="modal-topbar">
+      <div class="modal-title">
+       <img src="assets/roblox.png" width="22" height="22" class="icon-img">
+        Send Robux
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="modal-balance">
+         <img src="assets/robux.png" width="22" height="22" class="icon-img">
+          <span id="modalBalanceAmt">18</span>
+        </div>
+        <button class="modal-close-btn" onclick="closeSendModal()">✕</button>
+      </div>
+    </div>
+
+    <div class="search-wrap">
+      <input
+        type="text"
+        class="search-input-box"
+        id="usernameInput"
+        placeholder="Search by username"
+        oninput="onUsernameInput(this.value)"
+        autocomplete="off"
+        spellcheck="false"
+      />
+    </div>
+
+    <div class="searching-indicator" id="searchingIndicator">
+      Searching<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+    </div>
+
+    <div class="user-result" id="userResult">
+      <div class="user-card-inner">
+        <div id="avatarContainer"></div>
+        <div class="user-info">
+          <div class="user-display" id="userDisplayName"></div>
+          <div class="user-name" id="userUsername"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="send-ui-card" id="amountSection" style="display:none;">
+
+      <div class="send-ui-header">
+        <div class="send-ui-title-wrap">
+          <img src="assets/roblox.png" width="22" height="22" class="icon-img">
+          <span class="send-ui-title">Send Robux</span>
+        </div>
+
+        <div class="send-ui-balance">
+          <img src="assets/robux.png" width="20" height="20" class="icon-img">
+          <span id="liveBalance">0</span>
+        </div>
+      </div>
+
+      <div class="selected-user-wrap">
+        <div id="selectedAvatar"></div>
+        <div class="selected-user-name" id="selectedUserName">Username</div>
+      </div>
+
+      <div class="big-amount-wrap">
+        <img src="assets/robux.png" width="38" height="38" class="big-robux-icon">
+
+        <input
+          type="number"
+          id="amountInput"
+          class="big-amount-input"
+          value="0"
+          min="0"
+          max="10000"
+        />
+      </div>
+
+      <div class="quick-amount-grid">
+        <button class="quick-amount-btn" onclick="setQuickAmount(25)">
+          <img src="assets/robux.png" width="18" height="18">
+          25
+        </button>
+
+        <button class="quick-amount-btn" onclick="setQuickAmount(50)">
+          <img src="assets/robux.png" width="18" height="18">
+          50
+        </button>
+
+        <button class="quick-amount-btn" onclick="setQuickAmount(100)">
+          <img src="assets/robux.png" width="18" height="18">
+          100
+        </button>
+
+        <button class="quick-amount-btn" onclick="setQuickAmount(200)">
+          <img src="assets/robux.png" width="18" height="18">
+          200
+        </button>
+      </div>
+
+      <button class="next-send-btn" onclick="confirmSend()">
+        Next
+      </button>
+
+      <div class="send-footer-text">
+        Robux are sent instantly with no fees
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── Balance stored in localStorage ──
+  let balance = parseInt(localStorage.getItem('robux_balance') || '18');
+  let foundUser = null;
+  let searchTimeout = null;
+
+  function updateBalanceDisplay() {
+    document.getElementById('balanceDisplay').textContent = balance.toLocaleString();
+    document.getElementById('modalBalanceAmt').textContent = balance.toLocaleString();
+  }
+  updateBalanceDisplay();
+
+  // ── Edit balance by tapping ──
+  function editBalance(e) {
+    e.stopPropagation();
+    const el = document.getElementById('balanceDisplay');
+    el.contentEditable = 'true';
+    el.focus();
+    // Select all
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+
+    function finish() {
+      el.contentEditable = 'false';
+      const val = parseInt(el.textContent.replace(/,/g, '')) || 0;
+      balance = val;
+      localStorage.setItem('robux_balance', balance);
+      updateBalanceDisplay();
+      el.removeEventListener('blur', finish);
+      el.removeEventListener('keydown', onKey);
+    }
+    function onKey(ev) {
+      if (ev.key === 'Enter') { ev.preventDefault(); finish(); }
+    }
+    el.addEventListener('blur', finish);
+    el.addEventListener('keydown', onKey);
+  }
+
+  // ── Modal ──
+  function openSendModal() {
+    document.getElementById('sendModal').classList.add('visible');
+    setTimeout(() => document.getElementById('usernameInput').focus(), 400);
+    resetModal();
+  }
+  function closeSendModal() {
+    document.getElementById('sendModal').classList.remove('visible');
+    setTimeout(resetModal, 400);
+  }
+  function backdropClose(e) {
+    if (e.target === document.getElementById('sendModal')) closeSendModal();
+  }
+  function resetModal() {
+
+  document.getElementById('usernameInput').value = '';
+
+  document.getElementById('userResult').classList.remove('visible');
+
+  document.getElementById('amountSection').style.display = 'none';
+
+  document.getElementById('loadingOverlay').classList.remove('visible');
+
+  document.getElementById('successOverlay').classList.remove('visible');
+
+  document.getElementById('searchingIndicator').classList.remove('visible');
+
+  document.getElementById('amountInput').value = '';
+
+  // SHOW SEARCH BAR AGAIN
+  document.querySelector('.search-wrap').style.display = 'block';
+  document.getElementById('userResult').style.display = 'block';
+
+  foundUser = null;
+}
+  // ── Username search ──
+  function onUsernameInput(val) {
+    clearTimeout(searchTimeout);
+    foundUser = null;
+    document.getElementById('userResult').classList.remove('visible');
+    document.getElementById('amountSection').style.display = 'none';
+    document.getElementById('searchingIndicator').classList.remove('visible');
+
+    const trimmed = val.trim();
+    if (trimmed.length < 3) return;
+
+    searchTimeout = setTimeout(() => searchUser(trimmed), 600);
+  }
+
+  async function searchUser(username) {
+  document.getElementById('searchingIndicator').classList.add('visible');
+
+  try {
+    const resp = await fetch(`/api/user/${encodeURIComponent(username)}`);
+
+    document.getElementById('searchingIndicator').classList.remove('visible');
+
+    if (!resp.ok) {
+      showToast('User not found');
+      return;
+    }
+
+    const user = await resp.json();
+
+    foundUser = user;
+
+    showUserResult(user);
+
+  } catch (err) {
+    document.getElementById('searchingIndicator').classList.remove('visible');
+    showToast('Error searching user');
+  }
+}
+
+  function showUserResult(user) {
+
+  const avatarContainer =
+    document.getElementById('avatarContainer');
+
+  if (user.avatarUrl) {
+
+    avatarContainer.innerHTML = `
+      <img class="avatar-img"
+      src="${user.avatarUrl}"
+      alt="${user.displayName}">
+    `;
+
+  } else {
+
+    avatarContainer.innerHTML = '';
+
+    avatarContainer.appendChild(
+      makePlaceholder(user.displayName)
+    );
+  }
+
+  document.getElementById('userDisplayName').textContent =
+    user.displayName || user.name;
+
+  document.getElementById('userUsername').textContent =
+    '@' + user.name;
+
+  const result =
+    document.getElementById('userResult');
+
+  result.classList.add('visible');
+
+  // REMOVE AUTO SELECT
+  foundUser = null;
+
+  // WAIT FOR USER CLICK
+  result.onclick = () => {
+
+    foundUser = user;
+
+    const selectedAvatar =
+      document.getElementById('selectedAvatar');
+
+    if (user.avatarUrl) {
+
+      selectedAvatar.innerHTML = `
+        <img class="avatar-img"
+        src="${user.avatarUrl}"
+        alt="${user.displayName}">
+      `;
+
+    } else {
+
+      selectedAvatar.innerHTML = '';
+
+      selectedAvatar.appendChild(
+        makePlaceholder(user.displayName)
+      );
+    }
+
+    document.getElementById('selectedUserName').textContent =
+      user.displayName || user.name;
+
+    document.getElementById('liveBalance').textContent =
+      balance.toLocaleString();
+
+    // HIDE SEARCH BAR ONLY AFTER CLICK
+    document.querySelector('.search-wrap').style.display = 'none';
+
+    // HIDE RESULT CARD
+    result.style.display = 'none';
+
+    // SHOW SEND UI
+    document.getElementById('amountSection').style.display = 'block';
+  };
+}
+
+  function makePlaceholder(name) {
+    const div = document.createElement('div');
+    div.className = 'avatar-placeholder';
+    div.textContent = (name || '?')[0].toUpperCase();
+    return div;
+  }
+
+  
+  function setQuickAmount(amount) {
+    document.getElementById('amountInput').value = amount;
+  }
+
+
+  // ── Send Robux ──
+  async function confirmSend() {
+    if (!foundUser) return showToast('Search a user first');
+    const amount = parseInt(document.getElementById('amountInput').value);
+    if (!amount || amount < 1) return showToast('Enter a valid amount');
+    if (amount > balance) return showToast('Insufficient Robux balance');
+
+    document.getElementById('loadingOverlay').classList.add('visible');
+
+    try {
+      const resp = await fetch('/api/send-robux', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: foundUser.id, username: foundUser.name, amount })
+      });
+      const data = await resp.json();
+      document.getElementById('loadingOverlay').classList.remove('visible');
+
+      if (data.success) {
+        // Deduct balance
+        balance = Math.max(0, balance - amount);
+        localStorage.setItem('robux_balance', balance);
+        updateBalanceDisplay();
+
+        document.getElementById('successDesc').textContent =
+  `You sent ${amount} Robux to ${foundUser.name}`;
+        document.getElementById('successOverlay').classList.add('visible');
+      } else {
+        showToast(data.error || 'Send failed');
+      }
+    } catch (err) {
+      document.getElementById('loadingOverlay').classList.remove('visible');
+      showToast('Network error. Try again.');
+    }
+  }
+
+  // ── Toast ──
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // ── FAQ toggle ──
+  function toggleFaq(el) {
+    el.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
